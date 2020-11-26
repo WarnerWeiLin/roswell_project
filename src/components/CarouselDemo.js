@@ -15,31 +15,31 @@ class CarouselDemo extends React.Component {
     super(props);
     this.state = {
       products: data.products,
-      slideIndex: 0
+      slideIndex: 0,
+      slidesToShow: 4
     };
     this.prevSlide = this.prevSlide.bind(this);
     this.nextSlide = this.nextSlide.bind(this);
-    this.renderProductItems = this.renderProductItems.bind(this);
+    this.productItems = this.productItems.bind(this);
     this.prevButtonClass = this.prevButtonClass.bind(this);
     this.nextButtonClass = this.nextButtonClass.bind(this);
-
   }
 
   prevSlide() {
     if (this.state.slideIndex === 0) {
       return;
     }
-    let newSlideIndex = this.state.slideIndex - 1;
+    const newSlideIndex = this.state.slideIndex - 1;
     this.setState({
       slideIndex: newSlideIndex
     });
   }
 
   nextSlide() {
-    if (this.state.slideIndex === this.state.products.length - 4) {
+    if (this.state.slideIndex === this.state.products.length - this.state.slidesToShow) {
       return;
     }
-    let newSlideIndex = this.state.slideIndex + 1;
+    const newSlideIndex = this.state.slideIndex + 1;
     this.setState({
       slideIndex: newSlideIndex
     });
@@ -50,10 +50,10 @@ class CarouselDemo extends React.Component {
   }
 
   nextButtonClass () {
-    return `${this.state.slideIndex === 22 ? 'disabledButton' : ""} fa fa-chevron-circle-right button-style-override`;
+    return `${this.state.slideIndex === this.state.products.length - this.state.slidesToShow? 'disabledButton' : ""} fa fa-chevron-circle-right button-style-override`;
   }
 
-  renderProductItems(products) {
+  productItems(products) {
     return products.map((item) =>
       <Item key={item.id}>
         <Image
@@ -80,13 +80,14 @@ class CarouselDemo extends React.Component {
           </ButtonContainer>
         </div>
         <Carousel
+        // Below props are used to change the default settings of the Carousel Library. Removed Controls since I had to create my own controls in order position them.
           slidesToShow={4}
           slideIndex={this.state.slideIndex}
           renderBottomCenterControls={() => { 'null' }}
           renderCenterLeftControls={() => { 'null' }}
           renderCenterRightControls={() => { 'null' }}
         >
-          {this.renderProductItems(this.state.products)}
+          {this.productItems(this.state.products)}
         </Carousel>
       </Container>
     );
