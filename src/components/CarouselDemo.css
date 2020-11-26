@@ -1,0 +1,22 @@
+.vertical-layout{
+  display:flex;
+  flex-direction: column;
+}
+
+.horizontal-layout{
+  display:flex;
+  flex-direction: row;
+}
+
+.disabledButton{
+  color: grey
+}
+
+.button-style-override {
+  margin: 0;
+  border: 0;
+  padding: 5px;
+  background-color: white;
+  outline: none;
+  font-size: 15px;
+}
